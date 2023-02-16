@@ -16,9 +16,11 @@ export class AppComponent {
 
   constructor(private store: Store<AppState>) {  // { contador: number } Misma sintaxis que usamos en app.module.ts
     // Nos suscribimos a los cambios en la store
-    this.store.subscribe(state => { 
-      console.log("Nuevo cambio de estado: ", state); 
-      this.contador = state.contador;
+    // this.store.subscribe(state => {
+    this.store.select("contador").subscribe(contador => { // Con select seleccionamos el nodo de la store que nos interesa seguir
+      console.log("Nuevo cambio de estado: ", contador); 
+      // this.contador = state.contador;
+      this.contador = contador;
     })
   }
 
