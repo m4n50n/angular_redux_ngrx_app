@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from "@ngrx/store";
-import { incrementar, decrementar, multiplicar, dividir } from './contador.actions';
+import { incrementar, decrementar, multiplicar, dividir, reset } from './contador.actions';
 
 // Reducer recibirá las acciones
 // El reducer no debe trabajar con el "exterior"
@@ -15,11 +15,10 @@ import { incrementar, decrementar, multiplicar, dividir } from './contador.actio
 //     }
 // }
 
-
 /**
  * Implementacion automática del reducer de NgRx según la documentación
  */
-export const initialState = 20;
+export const initialState = 0;
 
 export const contadorReducer = createReducer( // De esta forma ya no trabajamos con los switch que trabajaríamos con vanilla js
     initialState,
@@ -27,5 +26,6 @@ export const contadorReducer = createReducer( // De esta forma ya no trabajamos 
     on(decrementar, (state) => state - 1), // Automáticamente ya se recogerán las actions creadas con createAction en contador.actions.ts
     // on(multiplicar, (state, props) => state * props.numero)
     on(multiplicar, (state, { numero }) => state * numero), // Con destructuración del objeto
-    on(dividir, (state, { numero }) => state / numero) // Con destructuración del objeto
+    on(dividir, (state, { numero }) => state / numero), // Con destructuración del objeto
+    on(reset, (state) => initialState)
 );
